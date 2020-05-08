@@ -17,12 +17,13 @@
               </van-radio-group>
             </template>
           </van-field>
-
-          <van-field name="isDiscount" label="贴息" :rules="[{ required: true, message: '请选择贴息' }]">
+          <!-- {{typeof formData.isDiscount}} -->
+          <van-field v-model="formData.isDiscount" label="贴息" name="isDiscount"
+            :rules="[{ required: true, message: '请选择贴息' }]">
             <template #input>
               <van-radio-group v-model="formData.isDiscount" direction="horizontal" :disabled='!hasDiscount'>
-                <van-radio :name='0'>否</van-radio>
-                <van-radio v-if='hasDiscount' :name='1'>是</van-radio>
+                <van-radio name='0'>否</van-radio>
+                <van-radio v-if='hasDiscount' name='1'>是</van-radio>
               </van-radio-group>
             </template>
           </van-field>
@@ -47,7 +48,7 @@
             :rules="[{ required: true, message: '请输入备注' }]" />
           <!-- 通过 validator 进行异步函数校验 -->
           <div class="footer">
-            <van-button round block type="info" @click='handleSubmit'>登录 </van-button>
+            <van-button round block type="info" @click='handleSubmit'>提交</van-button>
           </div>
         </van-form>
       </van-cell-group>
@@ -74,7 +75,7 @@ export default {
       getOrderPaymentRequest: '/manager/payment/orderPayment',
       formData: {
         amount: "",
-        isDiscount: "",
+        isDiscount: null,
         paymentName: '',
         paymentId: '',
         period: "",
@@ -206,7 +207,6 @@ export default {
     handleSubmit() {
       let successFlag = false
       console.log(this.formData)
-      debugger
       this.$refs.formData.validate().then(async valid => {
         try {
           await this.handleSubmitPromise()
@@ -295,7 +295,7 @@ export default {
     async handleChangePaymentName(data) {
       console.log('handleChangePaymentName+++++', data)
       console.log('this.tradeDictionary+++++', this.tradeDictionary)
-      this.formData.isDiscount = 0
+      this.formData.isDiscount = '0'
       let currentPeriodData = this.tradeDictionary.find(item => item.id === data.id)
       const checkTradeIndex = id => {
         this.tradeDictionary.forEach((item, index) => {

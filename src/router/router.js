@@ -29,7 +29,7 @@ import InnerLayoutMobile from '@/views/InnerLayoutMobile'
 export const constantRoutes = [{
   "name": "orderMobile",
   "path": "",
-  redirect: '/orderMobile/loginMobile',
+  redirect: '/loginMobile',
   component: InnerLayoutMobile,
   // "alwaysShow": true,
   configurable: false,
