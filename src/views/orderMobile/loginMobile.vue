@@ -1,0 +1,121 @@
+<template>
+  <div>
+    <div class="title">
+
+    </div>
+    <!-- <van-nav-bar title="登录" /> -->
+    <div class="">
+      <van-form validate-first label-width="3rem">
+        <!-- 通过 pattern 进行正则校验 -->
+        <van-field class="border" v-model="formData.account" name="account" placeholder="账号"
+          :rules="[{ required: true, message: '请输入账号' }]" label="账号：" />
+        <!-- 通过 validator 进行函数校验 -->
+        <van-field class="border" v-model="formData.password" type="password" name="validator" placeholder="密码"
+          :rules="[{ required: true, message: '请输入密码' }]" label="密码：" />
+        <!-- 通过 validator 进行异步函数校验 -->
+
+        <div class="forgetpassword">
+          <ul>
+            <li>
+              <a href="javascript:;">忘记密码</a>
+            </li>
+            <li>
+              <a href="javascript:;">修改密码</a>
+            </li>
+          </ul>
+        </div>
+        <div style="margin: 16px;">
+          <van-button round block type="info" @click='handleSubmit'>登录 </van-button>
+        </div>
+      </van-form>
+    </div>
+  </div>
+
+</template>
+
+<script>
+
+
+export default {
+  name: "LoginMobile",
+  components: {
+  },
+  data() {
+    return {
+      loginRequest: '/manager/login',
+      formData: {
+        account: "admin",
+        password: "123456"
+      },
+      value1: '',
+      value2: '',
+      value3: '',
+      pattern: /\d{6}/,
+    };
+  },
+  watch: {
+
+  },
+  created() {
+
+
+  },
+  async mounted() {
+
+  },
+  methods: {
+    // 校验函数返回 true 表示校验通过，false 表示不通过
+    validator(val) {
+      return /1\d{10}/.test(val);
+    },
+    // 异步校验函数返回 Promise
+    asyncValidator(val) {
+      return new Promise((resolve) => {
+        this.$toast.loading('验证中...');;
+
+        setTimeout(() => {
+          this.$toast.clear();
+          resolve(/\d{6}/.test(val));
+        }, 1000);
+      });
+    },
+    onFailed(errorInfo) {
+      console.log('failed', errorInfo);
+    },
+    handleSubmit() {
+      this.submitLoginPromise().then(response => {
+        this.$router.push({
+          name: 'createOrderMobile'
+        })
+      })
+    },
+    submitLoginPromise(formData) {
+      return new Promise((resolve, reject) => {
+
+        // // 临时跳过登录
+        // resolve()
+        // return
+
+        this.$http.post(this.loginRequest, {
+          account: this.formData.account,
+          password: this.formData.password
+        }).then(response => {
+          const code = response.code
+          switch (code) {
+            case 0:
+              resolve(response)
+            case 10001:
+              reject(response)
+            default:
+              resolve(response)
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+  }
+};
+
+</script>
+

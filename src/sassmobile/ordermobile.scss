@@ -1,0 +1,123 @@
+$orange: #dd7034;
+$orangelight: #e78a14;
+
+@import "vantui.scss";
+
+.innerlayoutmobile {
+    position: relative;
+    font-family: "simhei";
+    .header {
+        width: 100%;
+        height: 2rem;
+        border-bottom: 1px solid #dd7034;
+        &:before {
+            content: "";
+            display: inline-block;
+            width: 0;
+            height: 100%;
+            vertical-align: middle;
+        }
+        img {
+            display: inline-block;
+            margin: 0 1rem;
+            width: 5.5rem;
+            vertical-align: middle;
+        }
+    }
+    .main {
+        position: relative;
+        z-index: 1;
+        .title {
+            padding: 1rem 0;
+            font-size: 0.7rem;
+            &:before {
+                content: "";
+                display: inline-block;
+                margin: 0 0.5rem 0 1rem;
+                width: 0.5rem;
+                height: 0.5rem;
+                border-radius: 50%;
+                background-color: #dd7034;
+                // vertical-align: middle;
+            }
+        }
+        .forgetpassword {
+            padding: 1.5rem 0.8rem;
+            ul {
+                display: flex;
+                // justify-content: center;
+                justify-content: space-between;
+
+                li {
+                    display: inline-block;
+                    font-size: 0.6rem;
+                }
+            }
+        }
+    }
+    .bg {
+        width: 8rem;
+        height: 5.8rem;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        img{
+            display: inline-block;
+            width: 100%;
+        }
+        // background-image: url("../image/access/login_footer_00000.jpg");
+        // background-image: url('../image/mobile/logo.png');
+    }
+}
+
+.order_qrcodemobile_wrapper {
+    // background-color: red;
+    .hint {
+        // color: red;
+        text-align: center;
+    }
+    .qrcode_wrapper {
+        padding: 2rem 0;
+        text-align: center;
+
+        /deep/ .qrcode {
+            display: inline-block;
+            width: 6rem;
+            height: 6rem;
+            canvas {
+                // display: inline-block !important;
+            }
+            img {
+                // display: none !important;
+                // margin: 0 auto;
+                display: inline-block;
+                width: 100%;
+            }
+        }
+    }
+}
+.van-cell-group {
+    background-color: transparent;
+    .van-cell {
+        background-color: transparent;
+    }
+}
+.van-field {
+    &.border {
+        .van-field__body {
+            input,
+            textarea {
+                padding: 0 1rem;
+
+                border: 1px solid #dd7034;
+                border-radius: 2rem;
+                background-color: #fff;
+            }
+            textarea {
+                border-radius: 0.5rem;
+            }
+        }
+    }
+    .van-field__body {
+    }
+}
