@@ -61,7 +61,7 @@ $orangelight: #e78a14;
         position: fixed;
         right: 0;
         bottom: 0;
-        img{
+        img {
             display: inline-block;
             width: 100%;
         }
@@ -80,7 +80,7 @@ $orangelight: #e78a14;
         padding: 2rem 0;
         text-align: center;
 
-        /deep/ .qrcode {
+        .qrcode {
             display: inline-block;
             width: 6rem;
             height: 6rem;

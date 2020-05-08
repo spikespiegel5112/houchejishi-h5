@@ -206,18 +206,16 @@ export default {
       console.log('failed', errorInfo);
     },
     handleSubmit() {
-      let successFlag = false
       console.log(this.formData)
       this.$refs.formData.validate().then(async valid => {
         try {
           await this.handleSubmitPromise()
           await this.getQRCodePromise()
           Notify({
-            message: '获取二维码失败',
+            type: 'success',
+            message: '获取二维码成功',
             duration: 1000,
           });
-          // this.$message.success('获取二维码成功')
-          successFlag = true
           this.$router.push({
             name: 'showQRCodeMobile'
           })
@@ -233,19 +231,11 @@ export default {
       }).catch(error => {
 
         Notify({
-          message: '获取二维码失败',
+          message: '表单校验未通过',
           duration: 1000,
         });
 
       })
-
-      // if (successFlag) {
-      //   setTimeout(() => {
-      //     this.$router.push({
-      //       name: 'showQRCodeMobile'
-      //     })
-      //   }, 1000)
-      // }
     },
     handleSubmitPromise() {
 

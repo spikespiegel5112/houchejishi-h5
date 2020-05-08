@@ -2,12 +2,14 @@ import axios from 'axios'
 import Router from '../router/router'
 import Store from '../store/store'
 
-import {
-  Notification,
-  MessageBox,
-  Message
-} from 'element-ui'
+// import {
+//   Notification,
+//   MessageBox,
+//   Message
+// } from 'element-ui'
 import store from '@/store/store'
+import { Notify } from 'vant';
+
 
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
@@ -52,24 +54,14 @@ service.interceptors.response.use(res => {
     if (Boolean(loginFlag) === true) {
       loginFlag = false
       localStorage.removeItem('loginFlag')
+      Notify({
+        type: 'success',
+        message: '获取二维码成功',
+        duration: 1000
+      })
 
-      MessageBox({
-        title: '提示',
-        message: '已退出登录，请重新登录',
-        distinguishCancelAndClose: true,
-        confirmButtonText: '确定',
-        type: 'prompt',
-        showClose: false,
-        closeOnPressEscape: false,
-        closeOnClickModal: false,
-        callback(action) {
-          if (action === 'confirm') {
-
-            Router.push({
-              path: '/login'
-            })
-          }
-        }
+      Router.push({
+        path: '/loginMobile'
       })
     }
 
