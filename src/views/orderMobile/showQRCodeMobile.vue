@@ -10,10 +10,9 @@
     </div>
 
     <div class="order_qrcodemobile_wrapper">
-      <p class="hint">恭喜，二维码创建成功</p>
+      <p class="hint">请使用{{paymentName}}扫一扫</p>
       <div class="qrcode_wrapper">
         <div class="qrcode" ref='qrcode'></div>
-        <!-- <canvas id="canvas"></canvas> -->
       </div>
       <div v-if='failedFlag' class="error">当前二维码已超时，请重新创建订单</div>
     </div>
@@ -23,41 +22,42 @@
 </template>
 
 <script>
-import QRCode from 'qrcode'
+import { Notify } from 'vant';
+
+// import QRCode from 'qrcode'
 import QRCode2 from 'qrcodejs2'
 export default {
   name: 'ShowQRCode',
-  
+
   data() {
     return {
       findOrderByOrderNoRequest: '/manager/order/findOrderByOrderNo',
       alipayNotifyRequest: '/notify/alipayNotify',
-      timesLimit: 25,
+      timesLimit: 5,
       qrCodeData: '',
       failedFlag: false,
       active: 1
     }
   },
   computed: {
-
     tableHeight() {
       return 'calc(100vh - 320px)'
     },
+    paymentName() {
+      return this.$route.query.paymentName
+    }
   },
-  beforeCreate() {
 
-  },
-  created() {
-  },
   mounted() {
     this.getQrCode()
+
   },
   beforeDestroy() {
     this.timer = null
   },
   methods: {
     getQrCode() {
-      
+
 
       if (this.$store.state.app.qrCodeData !== '') {
         this.qrCodeData = this.$store.state.app.qrCodeData
@@ -91,6 +91,7 @@ export default {
       this.timer = () => {
         setTimeout(() => {
           this.timesLimit--
+          location.query.limit = this.timesLimit
           this.getPaymentStatusPromise().then(() => {
             // this.getPaymentStatusTimer()
             this.timer = null
@@ -112,9 +113,12 @@ export default {
           response = response.data
           if (this.timesLimit === 0) {
             this.failedFlag = true
-            this.$message.error('当前二维码已超时，请重新创建订单')
+            Notify({
+              type: 'error',
+              message: '当前二维码已超时，请重新创建订单',
+              duration: 1000,
+            });
             resolve()
-
           }
           if (response.order.status !== 2) {
             reject()

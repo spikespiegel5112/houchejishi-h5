@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { Notify } from 'vant';
 
 
 export default {
@@ -89,6 +90,11 @@ export default {
       this.submitLoginPromise().then(response => {
         this.$router.push({
           name: 'createOrderMobile'
+        })
+      }).catch(error => {
+        Notify({
+          message: error,
+          duration: 1000
         })
       })
     },

@@ -67,7 +67,7 @@ service.interceptors.response.use(res => {
 
   }
   const code = res.data ? res.data.respCode : res.respCode
-  let message = res.data ? res.data.respMsg : res.respMsg
+  const message = res.data ? res.data.respMsg : res.respMsg
   switch (code) {
     case '00':
       result = res.data

@@ -45,10 +45,10 @@
             </template>
           </van-field>
           <van-field class="border" v-model="formData.remark" :rows="remarkRows" autosize type="textarea" label="备注"
-            name="remark" :rules="[{ required: true, message: '请输入备注' }]" maxlength='100' show-word-limit />
+            name="remark" :rules="[{ required: false, message: '请输入备注' }]" maxlength='100' show-word-limit />
           <!-- 通过 validator 进行异步函数校验 -->
           <div class="footer">
-            <van-button round block type="info" @click='handleSubmit'>提交</van-button>
+            <van-button round block type="info" @click='handleSubmit'>收款</van-button>
           </div>
         </van-form>
       </van-cell-group>
@@ -155,7 +155,8 @@ export default {
       console.log('this.currentPeriodData', this.currentPeriodData)
 
       return result
-    }
+    },
+
   },
   watch: {
 
@@ -217,12 +218,15 @@ export default {
             duration: 1000,
           });
           this.$router.push({
-            name: 'showQRCodeMobile'
+            name: 'showQRCodeMobile',
+            query: {
+              paymentName: this.formData.paymentName,
+            }
           })
         } catch (error) {
           // Notify('获取二维码失败');
           Notify({
-            message: '获取二维码失败22',
+            message: error,
             duration: 1000,
           });
 
@@ -269,7 +273,11 @@ export default {
           resolve(response.data)
         }).catch(error => {
           console.log(error)
-          this.$message.error(error)
+          Notify({
+            type: 'error',
+            message: error,
+            duration: 1000,
+          });
           reject(error)
         })
       })
