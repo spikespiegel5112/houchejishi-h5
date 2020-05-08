@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import InnerLayoutMobile from '@/views/InnerLayoutMobile'
 
 /**
  * Note: 路由配置项
@@ -26,15 +27,64 @@ import Layout from '@/layout'
 
 // 公共路由
 export const constantRoutes = [{
-  path: '/',
-  redirect: '/loginMobile'
-}, {
-  path: '/redirect',
-  component: Layout,
-  hidden: true,
+  "name": "orderMobile",
+  "path": "",
+  redirect: '/orderMobile/loginMobile',
+  component: InnerLayoutMobile,
+  // "alwaysShow": true,
+  configurable: false,
+  "meta": {
+    "title": "移动端订单管理",
+    "icon": "gear",
+    functionaility: []
+  },
   children: [{
-    path: '/redirect/:path*',
-    component: () => import('@/views/redirect')
+    "name": "loginMobile",
+    "path": "/loginMobile",
+    component: () => import("@/views/orderMobile/loginMobile.vue"),
+    configurable: false,
+    // hidden: true,
+    "meta": {
+      "title": "移动端登录",
+      "icon": "gear",
+      functionaility: []
+    },
+  }, {
+
+    "name": "createOrderMobile",
+    "path": "/createOrderMobile",
+    component: () => import("@/views/orderMobile/createOrderMobile.vue"),
+    configurable: false,
+    // hidden: true,
+    "meta": {
+      "title": "移动端创建订单",
+      "icon": "gear",
+      functionaility: []
+    },
+  }, {
+
+    "name": "showQRCodeMobile",
+    "path": "/showQRCodeMobile",
+    component: () => import("@/views/orderMobile/showQRCodeMobile.vue"),
+    configurable: false,
+    // hidden: true,
+    "meta": {
+      "title": "移动端显示二维码",
+      "icon": "gear",
+      functionaility: []
+    },
+  }, {
+
+    "name": "congratulationMobile",
+    "path": "/congratulationMobile",
+    component: () => import("@/views/orderMobile/congratulationMobile.vue"),
+    configurable: false,
+    // hidden: true,
+    "meta": {
+      "title": "订单列表（商户）",
+      "icon": "gear",
+      functionaility: []
+    },
   }]
 }]
 

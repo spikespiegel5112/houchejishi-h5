@@ -109,13 +109,9 @@ service.interceptors.response.use(res => {
       const mobileRoute = Store.state.permission.routes.filter(item => item.name === 'orderMobile')
       const currentRouteData = Store.state.app.currentRouteData
 
-      if (mobileRoute[0].children.filter(item => item.path === currentRouteData.path).length > 0) {
-        Router.push({
-          name: 'loginMobile'
-        })
-      } else {
-        handleLogout()
-      }
+      Router.push({
+        name: 'loginMobile'
+      })
       return Promise.reject(message)
     case '99':
       return Promise.reject(message)

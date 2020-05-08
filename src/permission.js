@@ -158,82 +158,28 @@ const dispatchPermissionToRoute = (routeData, funtionailityData) => {
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
-  // store.commit('app/updateBackRoute', to.path)
-  console.log('to.path1+++++', to.path)
-  // next()
-
   let userInfo = store.state.user.userInfo
-  let pagePermissionData = null
-  let rolePermissionData = null
-  console.log('userInfo1+++++', userInfo)
+
+  console.log('to.path1+++++', to.path)
   if (!userInfo || Object.keys(userInfo).length === 0) {
-    if (to.path !== '/login' && to.path !== '/') {
-      // 判断当前用户是否已拉取完user_info信息
-      try {
-        userInfo = await store.dispatch('getUserInfo')
-        // pagePermissionData = await store.dispatch('permission/findIndexPermission')
-        // rolePermissionData = await store.dispatch('permission/getCurrentUserPermission')
-
-      } catch (error) {
-        console.log(error)
-        userInfo = null
-
-
-      }
-
-      console.log('userInfo2+++++++++', userInfo)
-      console.log('pagePermissionData++++', pagePermissionData)
-      console.log('rolePermissionData++++', rolePermissionData)
-
-
-      if (userInfo) {
-
-        // const parsedData = mainRoutes[0].children
-        // let parsedData = assmbleRoute(pagePermissionData)
-
-        // const funtionailityData = getFuntionailityData(rolePermissionData)
-        // parsedData = dispatchPermissionToRoute(parsedData, funtionailityData)
-
-        // console.log('funtionailityData routeDate+++++++++++++++++', funtionailityData)
-        // console.log('parseRouteData++++++', parsedData)
-        // mainRoutes[0].children = parsedData
-        
-
-        result = result.concat(mainRoutes)
-        router.addRoutes(result) // 动态添加可访问路由表
-        
-        // next()
-        next({
-          ...to,
-          replace: true
-        }) // hack方法 确保addRoutes已完成
-
-      } else {
-        next()
-        // next({
-        //   ...to,
-        //   replace: true
-        // }) // hack方法 确保addRoutes已完成
-      }
-
+    if (to.path !== '/loginMobile' && to.path !== '/') {
+      userInfo = await store.dispatch('getUserInfo')
+      next()
     } else {
-
-
       next()
     }
   } else {
-    // store.commit('setLogin', true)
-    // 
-    
-    // if (from.path === '/login') {
-    //   location.reload()
-    // } else {
-    //   next()
-    // }
     next()
 
   }
 
+
+
+
+  // next({
+  //   ...to,
+  //   replace: true
+  // }) // hack方法 确保addRoutes已完成
 })
 
 router.afterEach((to, from) => {

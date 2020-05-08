@@ -15,8 +15,8 @@ import InnerLayoutMobile from '@/views/InnerLayoutMobile'
 const state = {
   routes: [{
     "name": "orderMobile",
-    "path": "/orderMobile",
-    // redirect:'/orderMobile/loginMobile',
+    "path": "",
+    redirect:'/orderMobile/loginMobile',
     component: InnerLayoutMobile,
     // "alwaysShow": true,
     configurable: false,
@@ -26,17 +26,17 @@ const state = {
       functionaility: []
     },
     children: [{
-      "name": "loginMobile",
-      "path": "/loginMobile",
-      component: () => import("@/views/orderMobile/loginMobile.vue"),
-      configurable: false,
-      // hidden: true,
-      "meta": {
-        "title": "移动端登录",
-        "icon": "gear",
-        functionaility: []
-      },
-    }, {
+    //   "name": "loginMobile",
+    //   "path": "/loginMobile",
+    //   component: () => import("@/views/orderMobile/loginMobile.vue"),
+    //   configurable: false,
+    //   // hidden: true,
+    //   "meta": {
+    //     "title": "移动端登录",
+    //     "icon": "gear",
+    //     functionaility: []
+    //   },
+    // }, {
 
       "name": "createOrderMobile",
       "path": "/createOrderMobile",
