@@ -5,7 +5,7 @@
     <div class="common_vantform_wrapper">
       <van-cell-group>
         <van-form @sunmit='handleSubmit' ref='formData'>
-          <van-field class="border" v-model="formData.amount" label="金额" name="account" type="number"
+          <van-field class="border" v-model="formData.amount" label="金额" name="account" type="digit"
             :rules="[{ required: true, message: '请输入金额' }]" />
 
           <van-field v-model="formData.paymentId" label="支付方式" name="paymentId"
@@ -44,8 +44,8 @@
               </van-radio-group> -->
             </template>
           </van-field>
-          <van-field class="border" v-model="formData.remark" rows="3" autosize type="textarea" label="备注" name="remark"
-            :rules="[{ required: true, message: '请输入备注' }]" />
+          <van-field class="border" v-model="formData.remark" :rows="remarkRows" autosize type="textarea" label="备注"
+            name="remark" :rules="[{ required: true, message: '请输入备注' }]" maxlength='100' show-word-limit />
           <!-- 通过 validator 进行异步函数校验 -->
           <div class="footer">
             <van-button round block type="info" @click='handleSubmit'>提交</van-button>
@@ -104,6 +104,7 @@ export default {
       periodData: {},
       tradeIndex: 0,
       currentPeriodData: {},
+      remarkRows: 1
     };
   },
   computed: {
@@ -360,6 +361,13 @@ export default {
         }
       })
     },
+    handleFocusRemark() {
+      this.remarkRows = 2
+    },
+    handleBlurRemark() {
+      this.remarkRows = 2
+
+    }
   }
 };
 

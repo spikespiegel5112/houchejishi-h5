@@ -29,6 +29,9 @@
         </div>
       </van-form>
     </div>
+    <div class="bg">
+      <img src="@/image/mobile/bg.png" alt="">
+    </div>
   </div>
 
 </template>

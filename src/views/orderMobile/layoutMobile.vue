@@ -1,7 +1,6 @@
 <template>
   <div class="order_qrcode_wrapper">
     <p class="hint">支付完成</p>
-   
   </div>
 </template>
 

@@ -4,9 +4,7 @@
       <img src="@/image/mobile/logo.png" alt="">
     </div>
     <router-view class="main" />
-    <div class="bg">
-      <img src="@/image/mobile/bg.png" alt="">
-    </div>
+
   </div>
 </template>
 
