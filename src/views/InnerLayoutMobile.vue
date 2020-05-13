@@ -1,16 +1,23 @@
 <template>
   <div class="innerlayoutmobile">
     <div class="header">
-      <img src="@/image/mobile/logo.png" alt="">
+      <div class="logo">
+        <img src="@/image/common/logo.png" alt="">
+      </div>
+      <div v-if='headerData.close' class="close">
+        <van-icon name="cross" @click='close' />
+      </div>
     </div>
-    <router-view class="main" />
+    <div class="main">
+      <router-view />
+    </div>
 
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
-import { Col, Row, Form, Field, Button, Toast, NavBar, Cell, CellGroup, Step, Steps, RadioGroup, Radio, ActionSheet, DropdownMenu, DropdownItem, Notify } from 'vant';
+import { Col, Row, Icon, Form, Field, Button, Toast, NavBar, Cell, CellGroup, Step, Steps, RadioGroup, Radio, ActionSheet, DropdownMenu, DropdownItem, Notify, Popup } from 'vant';
 
 
 import 'vant/lib/button/style';
@@ -18,7 +25,7 @@ import 'vant/lib/button/style';
 export default {
   name: "MobileLayout",
   components: {
-    Col, Row, Form, Field, Button, Toast, NavBar, Cell, CellGroup, Step, Steps, RadioGroup, Radio, ActionSheet, DropdownMenu, DropdownItem, Notify
+    Col, Row, Icon, Form, Field, Button, Toast, NavBar, Cell, CellGroup, Step, Steps, RadioGroup, Radio, ActionSheet, DropdownMenu, DropdownItem, Notify, Popup
   },
   data() {
     return {
@@ -28,6 +35,9 @@ export default {
   computed: {
     userInfo() {
       return this.$store.state.user.userInfo
+    },
+    headerData() {
+      return this.$store.state.app.headerData
     }
   },
   watch: {
@@ -51,6 +61,7 @@ export default {
       Vue.use(Col);
       Vue.use(Row);
       Vue.use(Form);
+      Vue.use(Icon);
       Vue.use(Field);
       Vue.use(Button);
       Vue.use(Toast);
@@ -65,6 +76,7 @@ export default {
       Vue.use(DropdownMenu);
       Vue.use(DropdownItem);
       Vue.use(Notify);
+      Vue.use(Popup);
 
 
     },
@@ -84,6 +96,16 @@ export default {
         // this.$store.commit('setUserInfo', JSON.parse(localStorage.getItem('userInfo')))
 
         console.log('用户信息获取失败')
+      })
+    },
+    close() {
+      const returnTo = this.headerData.returnTo
+      this.$store.commit('app/updateHeader', {
+        close: false,
+        returnTo: ''
+      })
+      this.$router.push({
+        name: returnTo
       })
     }
   }

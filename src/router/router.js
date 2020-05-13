@@ -4,7 +4,6 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 /* Layout */
-import Layout from '@/layout'
 import InnerLayoutMobile from '@/views/InnerLayoutMobile'
 
 /**
@@ -81,44 +80,25 @@ export const constantRoutes = [{
     configurable: false,
     // hidden: true,
     "meta": {
-      "title": "订单列表（商户）",
+      "title": "支付成功",
       "icon": "gear",
       functionaility: []
     },
+  }, {
+
+    "name": "changePassword",
+    "path": "/changePassword",
+    component: () => import("@/views/orderMobile/changePassword.vue"),
+    configurable: false,
+    // hidden: true,
+    "meta": {
+      "title": "修改密码",
+      "icon": "gear",
+      functionaility: []
+    }
   }]
 }]
 
-export const errorRoutes = [{
-  path: '/404',
-  name: 'page404',
-  component: Layout,
-  hidden: true,
-  meta: {
-    "title": "",
-    "icon": ""
-  },
-  children: [{
-    path: '',
-    name: 'page404',
-    component: () => import('@/views/Error/Page404'),
-  }],
-}, {
-  path: '401',
-  name: 'page401',
-  component: () => import('@/views/InnerLayoutMobile'),
-  hidden: true,
-  meta: {
-    "title": "",
-    "icon": ""
-  },
-  children: [{
-    path: '401',
-    component: () => import('@/views/Error/Page401'),
-  }],
-}, {
-  path: '*',
-  redirect: '404'
-}]
 
 export default new Router({
   // mode: 'history', // 去掉url中的#

@@ -43,7 +43,11 @@ const state = {
   qrCodeData: '',
   currentMerchantData: null,
   currentRouteData: null,
-  pollingCheckOrderStatusTimesLimit: 25
+  pollingCheckOrderStatusTimesLimit: 25,
+  headerData: {
+    close: false,
+    returnTo: ''
+  }
 }
 
 const mutations = {
@@ -89,6 +93,15 @@ const mutations = {
   },
   updateCurrentRouteData(state, payload) {
     state.currentRouteData = payload
+  },
+  updateHeader(state, payload) {
+    const options = {
+      close: false,
+      returnTo: ''
+    }
+    if (Object.keys(payload).length > 0) {
+      state.headerData = Object.assign(options, payload)
+    }
   }
 }
 

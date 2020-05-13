@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <div class="title">
-
-    </div>
+  <div class="login">
     <!-- <van-nav-bar title="登录" /> -->
     <div class="">
       <van-form validate-first label-width="3rem">
@@ -17,10 +14,10 @@
         <div class="forgetpassword">
           <ul>
             <li>
-              <a href="javascript:;">忘记密码</a>
+              <a @click='handleForgetPassword'>忘记密码</a>
             </li>
             <li>
-              <a href="javascript:;">修改密码</a>
+              <router-link :to="{name:'changePassword'}">修改密码</router-link>
             </li>
           </ul>
         </div>
@@ -32,12 +29,24 @@
     <div class="bg">
       <img src="@/image/mobile/bg.png" alt="">
     </div>
+    <van-popup v-model="dialogVisible" round :close-on-click-overlay='false' overlay-class='common_dialog_container'>
+      <div class="common_dialog_wrapper">
+        <div class="main">
+          <div class="content">
+            请联系管理员
+          </div>
+        </div>
+        <div class="footer">
+          <a class="button" @click='dialogVisible=false'>确认</a>
+        </div>
+      </div>
+    </van-popup>
   </div>
 
 </template>
 
 <script>
-import { Notify } from 'vant';
+// import { Notify } from 'vant';
 
 
 export default {
@@ -55,6 +64,7 @@ export default {
       value2: '',
       value3: '',
       pattern: /\d{6}/,
+      dialogVisible: false
     };
   },
   watch: {
@@ -123,6 +133,9 @@ export default {
         })
       })
     },
+    handleForgetPassword() {
+      this.dialogVisible = true
+    }
   }
 };
 

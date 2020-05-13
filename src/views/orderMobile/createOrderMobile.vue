@@ -124,7 +124,6 @@ export default {
     hasDiscount() {
       let result = false
       const periodDiscount = this.currentPeriodData.periodDiscount
-      // debugger
       if (periodDiscount instanceof Array && periodDiscount.length > 0) {
         result = true
       }

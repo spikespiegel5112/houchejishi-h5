@@ -7,20 +7,18 @@
 <script>
 export default {
   name: 'CreateOrder',
-  
+
   data() {
     return {
       findOrderByOrderNoRequest: 'order/findOrderByOrderNo',
-      qrCode: 'aaa'
     }
   },
   computed: {
     tableHeight() {
       return 'calc(100vh - 320px)'
     },
-    qrCode() {
-      return this.$store.state.app.qrCode
-    }
+
+
   },
   beforeCreate() {
 
@@ -30,7 +28,7 @@ export default {
   mounted() {
   },
   methods: {
-    
+
 
 
   }
