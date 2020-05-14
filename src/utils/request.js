@@ -90,11 +90,11 @@ service.interceptors.response.use(res => {
     case '90':
       return Promise.reject(message)
     case '97':
-      Message({
-        message: message,
+      Notify({
         type: 'error',
-        duration: 5 * 1000
-      })
+        message: 'message',
+        duration: 5 * 1000,
+      });
       return Promise.reject(message)
     case '98':
 
@@ -116,7 +116,7 @@ service.interceptors.response.use(res => {
   return result
 }, error => {
   console.log('err' + error)
-  Message({
+  Notify({
     message: error,
     type: 'error',
     duration: 5 * 1000

@@ -46,7 +46,7 @@
 </template>
 
 <script>
-// import { Notify } from 'vant';
+import { Notify } from 'vant';
 
 
 export default {
@@ -98,6 +98,11 @@ export default {
     },
     handleSubmit() {
       this.submitLoginPromise().then(response => {
+        Notify({
+          type: 'success',
+          message: '登录成功',
+          duration: 1000
+        })
         this.$router.push({
           name: 'createOrderMobile'
         })

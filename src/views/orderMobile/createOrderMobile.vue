@@ -8,12 +8,21 @@
           <van-field class="border" v-model="formData.amount" label="金额" name="account" type="digit"
             :rules="[{ required: true, message: '请输入金额' }]" />
 
-          <van-field v-model="formData.paymentId" label="支付方式" name="paymentId"
-            :rules="[{ required: true, message: '请选择支付方式' }]">
+          <van-field v-model="formData.paymentId" label="" name="paymentId"
+            :rules="[{ required: true, message: '请选择支付方式' }]" class="paymentlist">
             <template #input>
               <van-radio-group v-model="formData.paymentId" direction="horizontal">
                 <van-radio v-for='item in tradeDictionary' :key="item.id" :name="item.id"
-                  @click='handleChangePaymentName(item)'>{{item.name}}</van-radio>
+                  @click='handleChangePaymentName(item)'>
+                  <div>
+                    <span v-if="item.img!==''" class="thumbnail">
+                      <!-- {{baseUrl+'/manager'+item.img}} -->
+                      <img :src="baseUrl+'/manager'+item.img" alt="">
+                    </span>
+                    <label>{{item.name}}</label>
+
+                  </div>
+                </van-radio>
               </van-radio-group>
             </template>
           </van-field>
@@ -31,7 +40,7 @@
           <van-field v-model="formData.period" v-if='checkPeriodVisible' label="分期" name="period"
             :rules="[{ required: true, message: '请选择分期' }]">
             <template #input>
-              <van-radio-group v-if='formData.isDiscount===0' v-model="formData.period" direction="horizontal">
+              <van-radio-group v-if="Number(formData.isDiscount)===0" v-model="formData.period" direction="horizontal">
                 <van-radio v-for='item in currentPeriodData.period' :key="item.index" :name="item">{{item}}期</van-radio>
               </van-radio-group>
               <van-radio-group v-else v-model="formData.period" direction="horizontal">
@@ -44,8 +53,8 @@
               </van-radio-group> -->
             </template>
           </van-field>
-          <van-field class="border" v-model="formData.remark" :rows="remarkRows" autosize type="textarea" label="备注"
-            name="remark" :rules="[{ required: false, message: '请输入备注' }]" maxlength='100' show-word-limit />
+          <!-- <van-field class="border" v-model="formData.remark" :rows="remarkRows" autosize type="textarea" label="备注"
+            name="remark" :rules="[{ required: false, message: '请输入备注' }]" maxlength='100' show-word-limit /> -->
           <!-- 通过 validator 进行异步函数校验 -->
           <div class="footer">
             <van-button round block type="info" @click='handleSubmit'>收款</van-button>
@@ -98,6 +107,8 @@ export default {
         size: 10,
         limit: 0
       },
+      timeLimit: 20, // 以秒为单位
+      frequencey: 3, // 以秒为单位
       tableData: [],
       tradesData: [],
       tradeDictionary: [],
@@ -108,6 +119,9 @@ export default {
     };
   },
   computed: {
+    baseUrl() {
+      return process.env.VUE_APP_BASE_API
+    },
     dialogStatus() {
       return this.dialogType === 0 ? '添加' : '编辑'
     },
@@ -131,8 +145,7 @@ export default {
 
     },
     checkPeriodVisible() {
-      let result = true
-      // let currentPeriodData = this.currentPeriodData
+     let result = true
       if (Object.keys(this.currentPeriodData).length === 0 || !this.currentPeriodData.periodDiscount) {
         return false
       }

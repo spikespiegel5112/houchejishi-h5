@@ -1,16 +1,15 @@
 <template>
   <div>
-    <van-nav-bar title="创建订单" @click-left="logOut" @click-right="onClickRight" />
+    <!-- <van-nav-bar title="创建订单" @click-left="logOut" @click-right="onClickRight" /> -->
     <div class="common_vantstep_wrapper">
       <van-steps :active="active">
-        <van-step>创建订单</van-step>
-        <van-step>扫描二维码</van-step>
-        <van-step>交易完成</van-step>
+        <van-step>正在支付</van-step>
+        <van-step>支付完成</van-step>
       </van-steps>
     </div>
 
     <div class="order_qrcodemobile_wrapper">
-      <p class="hint">请使用{{paymentName}}扫一扫</p>
+      <p class="hint">打开{{paymentName}}，扫一扫</p>
       <div class="qrcode_wrapper">
         <div class="qrcode" ref='qrcode'></div>
       </div>
@@ -33,10 +32,11 @@ export default {
     return {
       findOrderByOrderNoRequest: '/manager/order/findOrderByOrderNo',
       alipayNotifyRequest: '/notify/alipayNotify',
-      timesLimit: 5,
+      timeLimit: 20, // 以秒为单位
+      frequencey: 3, // 以秒为单位
       qrCodeData: '',
       failedFlag: false,
-      active: 1
+      active: 0
     }
   },
   computed: {
@@ -91,7 +91,7 @@ export default {
       this.timer = () => {
         setTimeout(() => {
           this.timesLimit--
-          location.query.limit = this.timesLimit
+          // location.query.limit = this.timesLimit
           this.getPaymentStatusPromise().then(() => {
             // this.getPaymentStatusTimer()
             this.timer = null

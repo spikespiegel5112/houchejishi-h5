@@ -75,7 +75,7 @@
 
 .van-field {
     .van-field__label {
-        width: 4.5rem;
+        width: 3.8rem;
     }
     .van-field__error-message {
         font-size: 0.6rem;
@@ -92,6 +92,9 @@
     .van-radio__label {
         margin-left: 0.4rem;
         line-height: 1.3rem;
+    }
+    .van-radio__icon{
+        font-size: 0.8rem;
     }
 }
 
