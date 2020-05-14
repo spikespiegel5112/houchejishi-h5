@@ -25,6 +25,7 @@
     }
 }
 .van-steps {
+    overflow: visible;
     &.van-steps--horizontal {
         .van-step__title {
             font-size: 0.6rem;
@@ -34,6 +35,16 @@
         }
     }
     .van-step--horizontal {
+        &:first-child {
+            .van-step__title {
+                margin-left: -0.8rem;
+            }
+        }
+        &:last-child {
+            .van-step__title {
+                margin-right: -1rem;
+            }
+        }
         .van-step__title {
             margin-left: 0.15rem;
         }
@@ -93,7 +104,7 @@
         margin-left: 0.4rem;
         line-height: 1.3rem;
     }
-    .van-radio__icon{
+    .van-radio__icon {
         font-size: 0.8rem;
     }
 }

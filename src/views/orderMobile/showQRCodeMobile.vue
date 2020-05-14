@@ -3,8 +3,8 @@
     <!-- <van-nav-bar title="创建订单" @click-left="logOut" @click-right="onClickRight" /> -->
     <div class="common_vantstep_wrapper">
       <van-steps :active="active">
-        <van-step>正在支付</van-step>
-        <van-step>支付完成</van-step>
+        <van-step class="step1">正在支付</van-step>
+        <van-step class="step2">支付完成</van-step>
       </van-steps>
     </div>
 
