@@ -44,7 +44,6 @@ export default {
 
   },
   created() {
-    this.getUserInfo()
     this.$remResizing({
       baseline: 320,
       fontSize: 20,
@@ -80,24 +79,7 @@ export default {
 
 
     },
-    getUserInfo() {
-
-
-      if (this.userInfo === {}) {
-        return
-      }
-      console.log(this.userInfo)
-      this.$http.post(this.getUserInfoRequest, {}).then(response => {
-        console.log('getUsercInfo+++', response)
-        this.$store.commit('setUserInfo', response.data)
-        localStorage.setItem('userInfo', JSON.stringify(response.data))
-
-      }).catch(error => {
-        // this.$store.commit('setUserInfo', JSON.parse(localStorage.getItem('userInfo')))
-
-        console.log('用户信息获取失败')
-      })
-    },
+  
     close() {
       const returnTo = this.headerData.returnTo
       this.$store.commit('app/updateHeader', {

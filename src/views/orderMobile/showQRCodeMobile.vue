@@ -36,7 +36,10 @@ export default {
       frequencey: 3, // 以秒为单位
       qrCodeData: '',
       failedFlag: false,
-      active: 0
+      active: 0,
+      timer: '',
+      timestamp: 0,
+      currentTimestamp: 0,
     }
   },
   computed: {
@@ -49,14 +52,14 @@ export default {
   },
 
   mounted() {
-    this.getQrCode()
+    this.showQRCode()
 
   },
   beforeDestroy() {
     this.timer = null
   },
   methods: {
-    getQrCode() {
+    showQRCode() {
 
 
       if (this.$store.state.app.qrCodeData !== '') {
@@ -90,17 +93,24 @@ export default {
     getPaymentStatusTimer() {
       this.timer = () => {
         setTimeout(() => {
-          this.timesLimit--
-          // location.query.limit = this.timesLimit
+          // this.timeLimit--
+          this.currentTimestamp = Math.round(new Date())
           this.getPaymentStatusPromise().then(() => {
-            // this.getPaymentStatusTimer()
-            this.timer = null
+            if (!failedFlag) {
+              this.currentStep = 2
+            } else {
+              Notify({
+                type: 'error',
+                message: '当前二维码已超时，请重新创建订单',
+                duration: 1000,
+              });
+            }
           }).catch(error => {
             if (!!this.timer) {
               this.timer()
             }
           })
-        }, 3000)
+        }, this.frequencey * 1000)
       }
       this.timer()
     },
