@@ -1,8 +1,7 @@
 <template>
   <div>
-    <!-- <van-nav-bar title="创建订单" @click-left="logOut" @click-right="onClickRight" /> -->
     <div class="common_vantstep_wrapper">
-      <van-steps :active="active">
+      <van-steps :active="active" active-color="#dd7034">
         <van-step class="step1">正在支付</van-step>
         <van-step class="step2">支付完成</van-step>
       </van-steps>
@@ -10,10 +9,21 @@
 
     <div class="order_qrcodemobile_wrapper">
       <p class="hint">打开{{paymentName}}，扫一扫</p>
+      <!-- {{timestamp}}
+      {{currentTimestamp}}
+      {{(currentTimestamp-timestamp)/1000}}
+      {{timeLimit}} -->
       <div class="qrcode_wrapper">
         <div class="qrcode" ref='qrcode'></div>
+        <div class="amount">金额：{{amount}}</div>
+        <div v-if='failedFlag'>
+          <div class="error">当前二维码已超时</div>
+          <div>
+            <van-button plain @click='goBack'>返回</van-button>
+          </div>
+        </div>
+
       </div>
-      <div v-if='failedFlag' class="error">当前二维码已超时，请重新创建订单</div>
     </div>
 
   </div>
@@ -32,7 +42,7 @@ export default {
     return {
       findOrderByOrderNoRequest: '/manager/order/findOrderByOrderNo',
       alipayNotifyRequest: '/notify/alipayNotify',
-      timeLimit: 20, // 以秒为单位
+      timeLimit: 1800, // 以秒为单位
       frequencey: 3, // 以秒为单位
       qrCodeData: '',
       failedFlag: false,
@@ -40,6 +50,7 @@ export default {
       timer: '',
       timestamp: 0,
       currentTimestamp: 0,
+      amount: ''
     }
   },
   computed: {
@@ -50,22 +61,35 @@ export default {
       return this.$route.query.paymentName
     }
   },
+  created() {
 
+  },
   mounted() {
     this.showQRCode()
+    this.getAmount()
 
   },
   beforeDestroy() {
     this.timer = null
   },
   methods: {
+    getAmount() {
+      this.amount = sessionStorage.getItem('amount')
+    },
+    checkIfexpired() {
+      this.currentTimestamp = Math.round(new Date())
+      const storeData = this.$store.state.app.timestamp
+      this.timestamp = storeData === '' ? sessionStorage.getItem('timestamp') : storeData
+      if (!this.timestamp) {
+        this.failedFlag = true
+      }
+      return (this.currentTimestamp - this.timestamp) / 1000 >= this.timeLimit
+    },
     showQRCode() {
-
-
       if (this.$store.state.app.qrCodeData !== '') {
         this.qrCodeData = this.$store.state.app.qrCodeData
       } else {
-        this.qrCodeData = localStorage.getItem('qrCodeData')
+        this.qrCodeData = sessionStorage.getItem('qrCodeData')
       }
       // QRCode.toCanvas(canvas, this.qrCodeData, function (error) {
       //   if (error) console.error(error)
@@ -92,12 +116,16 @@ export default {
     },
     getPaymentStatusTimer() {
       this.timer = () => {
+
+
         setTimeout(() => {
           // this.timeLimit--
-          this.currentTimestamp = Math.round(new Date())
           this.getPaymentStatusPromise().then(() => {
-            if (!failedFlag) {
-              this.currentStep = 2
+            if (!this.failedFlag) {
+              // this.currentStep = 2
+              this.$router.push({
+                name: 'congratulationMobile'
+              })
             } else {
               Notify({
                 type: 'error',
@@ -106,41 +134,48 @@ export default {
               });
             }
           }).catch(error => {
+            console.log(error)
             if (!!this.timer) {
               this.timer()
             }
           })
         }, this.frequencey * 1000)
       }
-      this.timer()
+      if (this.checkIfexpired()) {
+
+        this.failedFlag = true
+        this.timer = null
+      } else {
+
+
+        this.timer()
+      }
     },
+
     getPaymentStatusPromise() {
-      const orderNo = localStorage.getItem('orderNo')
+      const orderNo = sessionStorage.getItem('orderNo')
       return new Promise((resolve, reject) => {
         this.$http.post(this.findOrderByOrderNoRequest, {
           orderNo: orderNo
         }).then(response => {
           response = response.data
-          if (this.timesLimit === 0) {
+          // debugger
+          this.amount = response.amount
+          if (this.checkIfexpired()) {
             this.failedFlag = true
-            Notify({
-              type: 'error',
-              message: '当前二维码已超时，请重新创建订单',
-              duration: 1000,
-            });
-            resolve()
+            this.timer = null
+            resolve(this.failedFlag)
           }
-          if (response.order.status !== 2) {
-            reject()
+          if (response.status !== 2) {
+            reject(this.failedFlag)
 
           } else {
-            this.$router.push({
-              name: 'congratulation'
-            })
-            resolve()
+            this.timer = null
+            resolve(this.failedFlag)
 
           }
         }).catch(error => {
+          console.log(error)
           reject(error)
         })
       })
@@ -149,10 +184,10 @@ export default {
     onClickRight() {
 
     },
-    logOut() {
+    goBack() {
       this.$router.go(-1)
-    },
 
+    }
 
   }
 }

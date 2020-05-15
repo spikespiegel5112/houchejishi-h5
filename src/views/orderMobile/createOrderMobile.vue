@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="title">新增订单</div>
+    <!-- <div class="title">新增订单</div> -->
 
     <div class="common_vantform_wrapper">
       <van-cell-group>
@@ -145,7 +145,7 @@ export default {
 
     },
     checkPeriodVisible() {
-     let result = true
+      let result = true
       if (Object.keys(this.currentPeriodData).length === 0 || !this.currentPeriodData.periodDiscount) {
         return false
       }
@@ -262,8 +262,12 @@ export default {
           paymentName: this.tradeDictionary.find(item => item.id === this.formData.paymentId).name,
           period: this.formData.period === '' ? 0 : this.formData.period
         })).then(response => {
+          this.timestamp = Math.round(new Date())
+          this.$store.commit('app/updateTimestamp', this.timestamp)
           this.orderNo = response.data.orderNo
-          localStorage.setItem('orderNo', this.orderNo)
+          sessionStorage.setItem('orderNo', this.orderNo)
+          sessionStorage.setItem('timestamp', this.timestamp)
+          sessionStorage.setItem('amount', response.data.amount)
           resolve(response)
         }).catch(error => {
           console.log(error)
@@ -281,7 +285,7 @@ export default {
           this.qrCode = response.data
 
           this.$store.commit('app/setQrCode', this.qrCode)
-          localStorage.setItem('qrCodeData', response.data)
+          sessionStorage.setItem('qrCodeData', response.data)
           resolve(response.data)
         }).catch(error => {
           console.log(error)

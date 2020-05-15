@@ -93,9 +93,7 @@ const user = {
 
         service.get('/manager/getUserInfo', {}).then(response => {
           // response = response.data
-          const avatar = !response.avatar || response.avatar === '' ? require("@/image/access/profile.jpg") : process.env.VUE_APP_BASE_API + user.avatar;
           response = response.data || response
-          commit('SET_AVATAR', avatar)
           commit('setUserInfo', response)
           commit('setLogin', true)
           resolve(response)

@@ -47,10 +47,14 @@ const state = {
   headerData: {
     close: false,
     returnTo: ''
-  }
+  },
+  timestamp: ''
 }
 
 const mutations = {
+  updateTimestamp: (state, payload) => {
+    state.timestamp = payload
+  },
   setQrCode: (state, payload) => {
     state.qrCodeData = payload
   },

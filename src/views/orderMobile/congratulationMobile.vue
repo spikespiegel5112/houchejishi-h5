@@ -1,18 +1,26 @@
 <template>
-  <div class="order_qrcode_wrapper">
-    <p class="hint">支付完成</p>
-   
+  <div class="step3">
+    <div class="common_vantstep_wrapper">
+      <van-steps :active="active" active-color="#dd7034">
+        <van-step class="step1">正在支付</van-step>
+        <van-step class="step2">支付完成</van-step>
+      </van-steps>
+    </div>
+    <div class="banner">
+      <img src="@/image/mobile/success.png" alt="">
+      <label for="">支付成功</label>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'CreateOrder',
-  
+
   data() {
     return {
-      findOrderByOrderNoRequest: 'order/findOrderByOrderNo',
-      qrCode: 'aaa'
+      active: 1,
+
     }
   },
   computed: {
@@ -31,7 +39,7 @@ export default {
   mounted() {
   },
   methods: {
-    
+
 
 
   }

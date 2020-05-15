@@ -128,7 +128,6 @@ const actions = {
       console.log('findRolePermission++++++', params)
       service.post('/manager/permission/findRolePermission', params).then(response => {
         response = response.data
-        const avatar = !response.avatar || response.avatar === '' ? require("@/image/access/profile.jpg") : process.env.VUE_APP_BASE_API + user.avatar;
 
         // commit('setRolePermission', response)
         resolve(response)
