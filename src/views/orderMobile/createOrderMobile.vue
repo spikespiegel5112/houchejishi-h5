@@ -122,19 +122,12 @@ export default {
     baseUrl() {
       return process.env.VUE_APP_BASE_API
     },
-    dialogStatus() {
-      return this.dialogType === 0 ? '添加' : '编辑'
-    },
-    tableHeight() {
-      return 'calc(100vh - 320px)'
-    },
     userInfo() {
       return this.$store.state.user.userInfo
     },
     pollingCheckOrderStatusTimesLimit() {
       return this.$store.state.app.pollingCheckOrderStatusTimesLimit
     },
-
     hasDiscount() {
       let result = false
       const periodDiscount = this.currentPeriodData.periodDiscount
@@ -142,7 +135,6 @@ export default {
         result = true
       }
       return result
-
     },
     checkPeriodVisible() {
       let result = true
@@ -175,9 +167,6 @@ export default {
   },
   created() {
     this.getPeriodData()
-  },
-  async mounted() {
-
   },
   methods: {
     getPeriodData() {
@@ -222,27 +211,26 @@ export default {
       console.log(this.formData)
       this.$refs.formData.validate().then(async valid => {
         try {
-          await this.handleSubmitPromise()
-          await this.getQRCodePromise()
-          Notify({
-            type: 'success',
-            message: '获取二维码成功',
-            duration: 1000,
-          });
-          this.$router.push({
-            name: 'showQRCodeMobile',
-            query: {
-              paymentName: this.formData.paymentName,
+          await this.handleSubmitPromise().then(async response => {
+            if (this.tradeDictionary.find(item => item.id === this.formData.paymentId).name !== '银联支付') {
+              this.qrCode = await this.getQRCodePromise()
+            } else {
+              this.qrCode = this.baseUrl + this.getOrderPaymentRequest + '?orderNo=' + this.orderNo
             }
+            this.$store.commit('app/setQrCode', this.qrCode)
+            this.$router.push({
+              name: 'showQRCodeMobile',
+              query: {
+                paymentName: this.formData.paymentName,
+              }
+            })
           })
+
         } catch (error) {
-          // Notify('获取二维码失败');
           Notify({
             message: error,
             duration: 1000,
           });
-
-
         }
       }).catch(error => {
 
@@ -284,7 +272,6 @@ export default {
             orderNo: this.orderNo
           }
         }).then(response => {
-          this.qrCode = response.data
 
           this.$store.commit('app/setQrCode', this.qrCode)
           sessionStorage.setItem('qrCodeData', response.data)

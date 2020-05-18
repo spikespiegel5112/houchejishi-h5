@@ -105,6 +105,20 @@
         margin-left: 0.4rem;
         line-height: 1.3rem;
     }
+    .van-radio__icon--checked{
+        .van-icon{
+            background-color: #dd7034;
+            border-color: #dd7034;
+        }
+    }
+    .van-radio__icon--disabled{
+        .van-icon{
+            background-color: #ebedf0;
+            border-color: #c8c9cc;
+        }
+        opacity: 0.5;
+        // color: #fff;
+    }
     .van-radio__icon {
         font-size: 0.8rem;
     }

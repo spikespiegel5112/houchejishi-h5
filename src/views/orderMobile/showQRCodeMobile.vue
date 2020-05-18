@@ -54,9 +54,6 @@ export default {
     }
   },
   computed: {
-    tableHeight() {
-      return 'calc(100vh - 320px)'
-    },
     paymentName() {
       return this.$route.query.paymentName
     }
@@ -159,7 +156,7 @@ export default {
           orderNo: orderNo
         }).then(response => {
           response = response.data
-          
+
           this.amount = response.amount
           if (this.checkIfexpired()) {
             this.failedFlag = true
