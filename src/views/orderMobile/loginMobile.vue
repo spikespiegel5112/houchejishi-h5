@@ -72,10 +72,17 @@ export default {
   },
   created() {
 
-
   },
   async mounted() {
 
+    const authFlag = localStorage.getItem("loginFlag");
+
+    if (authFlag && authFlag !== 'null') {
+      this.$router.push('/createOrderMobile')
+      this.loading = false;
+    } else {
+      this.loading = false;
+    }
   },
   methods: {
     // 校验函数返回 true 表示校验通过，false 表示不通过
@@ -96,8 +103,12 @@ export default {
     onFailed(errorInfo) {
       console.log('failed', errorInfo);
     },
-    handleSubmit() {
-      this.submitLoginPromise().then(response => {
+    async  handleSubmit() {
+      try {
+        await this.submitLoginPromise()
+        localStorage.setItem("loginFlag", true);
+        this.$store.commit('setLogin', true)
+
         Notify({
           type: 'success',
           message: '登录成功',
@@ -106,20 +117,15 @@ export default {
         this.$router.push({
           name: 'createOrderMobile'
         })
-      }).catch(error => {
+      } catch (error) {
         Notify({
           message: error,
           duration: 1000
         })
-      })
+      }
     },
     submitLoginPromise(formData) {
       return new Promise((resolve, reject) => {
-
-        // // 临时跳过登录
-        // resolve()
-        // return
-
         this.$http.post(this.loginRequest, {
           account: this.formData.account,
           password: this.formData.password

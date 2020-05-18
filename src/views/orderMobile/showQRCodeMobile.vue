@@ -159,7 +159,7 @@ export default {
           orderNo: orderNo
         }).then(response => {
           response = response.data
-          // debugger
+          
           this.amount = response.amount
           if (this.checkIfexpired()) {
             this.failedFlag = true

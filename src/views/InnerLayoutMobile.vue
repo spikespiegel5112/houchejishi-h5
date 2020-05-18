@@ -7,6 +7,9 @@
       <div v-if='headerData.close' class="close">
         <van-icon name="cross" @click='close' />
       </div>
+      <div class="logout">
+        <a @click='logout'>注销</a>
+      </div>
     </div>
     <div class="main">
       <router-view />
@@ -17,7 +20,7 @@
 
 <script>
 import Vue from 'vue';
-import { Col, Row, Icon, Form, Field, Button, Toast, NavBar, Cell, CellGroup, Step, Steps, RadioGroup, Radio, ActionSheet, DropdownMenu, DropdownItem, Notify, Popup } from 'vant';
+import { Col, Dialog, Row, Icon, Form, Field, Button, Toast, NavBar, Cell, CellGroup, Step, Steps, RadioGroup, Radio, ActionSheet, DropdownMenu, DropdownItem, Notify, Popup } from 'vant';
 
 
 import 'vant/lib/button/style';
@@ -25,7 +28,7 @@ import 'vant/lib/button/style';
 export default {
   name: "MobileLayout",
   components: {
-    Col, Row, Icon, Form, Field, Button, Toast, NavBar, Cell, CellGroup, Step, Steps, RadioGroup, Radio, ActionSheet, DropdownMenu, DropdownItem, Notify, Popup
+    Col, Dialog, Row, Icon, Form, Field, Button, Toast, NavBar, Cell, CellGroup, Step, Steps, RadioGroup, Radio, ActionSheet, DropdownMenu, DropdownItem, Notify, Popup
   },
   data() {
     return {
@@ -58,6 +61,7 @@ export default {
   methods: {
     importVantComponents() {
       Vue.use(Col);
+      Vue.use(Dialog);
       Vue.use(Row);
       Vue.use(Form);
       Vue.use(Icon);
@@ -79,7 +83,7 @@ export default {
 
 
     },
-  
+
     close() {
       const returnTo = this.headerData.returnTo
       this.$store.commit('app/updateHeader', {
@@ -89,6 +93,21 @@ export default {
       this.$router.push({
         name: returnTo
       })
+    },
+    logout() {
+      this.$dialog.confirm({
+        title: '提示',
+        message: '是否注销当前账户？',
+      }).then(() => {
+        localStorage.removeItem("loginFlag");
+        this.$store.dispatch('logout').then(response => {
+          this.$router.push({
+            path: '/loginMobile'
+          })
+        })
+      })
+
+
     }
   }
 };

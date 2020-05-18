@@ -76,12 +76,12 @@ export default {
       console.log(this.formData)
       this.$refs.formData.validate().then(async valid => {
         try {
-          // debugger
+          
           await this.submitLoginPromise()
           try {
             await submitResetPasswordPromise()
           } catch (error) {
-            debugger
+            
             Notify({
               message: error,
               duration: 1001,
@@ -108,7 +108,7 @@ export default {
     submitLoginPromise() {
 
       return new Promise((resolve, reject) => {
-        debugger
+        
 
         this.$http.post(this.loginRequest, {
           account: this.formData.loginName,

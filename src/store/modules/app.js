@@ -48,10 +48,15 @@ const state = {
     close: false,
     returnTo: ''
   },
-  timestamp: ''
+  timestamp: '',
+  fromRoute: ''
 }
 
 const mutations = {
+  updateFromRoute: (state, payload) => {
+    state.fromRoute = payload
+    console.log('updateFromRoute++++', payload)
+  },
   updateTimestamp: (state, payload) => {
     state.timestamp = payload
   },

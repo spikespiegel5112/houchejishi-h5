@@ -8,7 +8,7 @@ import Store from '../store/store'
 //   Message
 // } from 'element-ui'
 import store from '@/store/store'
-import { Notify } from 'vant';
+import { Notify, Dialog } from 'vant';
 
 
 
@@ -51,18 +51,22 @@ service.interceptors.response.use(res => {
     return Promise.reject(res.data)
   }
   const handleLogout = () => {
+    
+
     if (Boolean(loginFlag) === true) {
+      
       loginFlag = false
       localStorage.removeItem('loginFlag')
-      Notify({
-        type: 'success',
-        message: '获取二维码成功',
-        duration: 1000
-      })
+      Dialog.alert({
+        title: '提示',
+        message: '当前已退出登录，请重新登录',
+      }).then(() => {
+        Router.push({
+          path: '/loginMobile'
+        })
+      });
 
-      Router.push({
-        path: '/loginMobile'
-      })
+
     }
 
   }
@@ -97,13 +101,23 @@ service.interceptors.response.use(res => {
       });
       return Promise.reject(message)
     case '98':
+      const fromRouteData = Store.state.app.fromRoute
 
-      const mobileRoute = Store.state.permission.routes.filter(item => item.name === 'orderMobile')
-      const currentRouteData = Store.state.app.currentRouteData
+      if (fromRouteData.path === '/loginMobile' || fromRouteData.path === '/') {
+        localStorage.removeItem('loginFlag')
+        // setTimeout(() => {
+        //   Router.push({
+        //     path: fromRouteData.path
+        //   })
+        // })
+        handleLogout()
+      } else {
 
-      Router.push({
-        name: 'loginMobile'
-      })
+        handleLogout()
+      }
+      // Router.push({
+      //   name: 'loginMobile'
+      // })
       return Promise.reject(message)
     case '99':
       return Promise.reject(message)

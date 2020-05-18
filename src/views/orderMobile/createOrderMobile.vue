@@ -279,8 +279,10 @@ export default {
     },
     getQRCodePromise() {
       return new Promise((resolve, reject) => {
-        this.$http.post(this.getOrderPaymentRequest, {
-          orderNo: this.orderNo
+        this.$http.get(this.getOrderPaymentRequest, {
+          params: {
+            orderNo: this.orderNo
+          }
         }).then(response => {
           this.qrCode = response.data
 

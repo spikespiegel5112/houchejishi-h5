@@ -113,7 +113,6 @@ const user = {
         service.post('/manager/logout', {}).then(response => {
           localStorage.removeItem('loginFlag')
           commit('setUserInfo', {})
-          Message.success('已退出登录')
           resolve(response)
         }).catch(error => {
           reject(error)
