@@ -7,7 +7,7 @@
       <div v-if='headerData.close' class="close">
         <van-icon name="cross" @click='close' />
       </div>
-      <div class="logout">
+      <div class="logout button">
         <a @click='logout'>注销</a>
       </div>
     </div>

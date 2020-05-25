@@ -46,6 +46,17 @@ $orangelight: #e78a14;
             height: 1rem;
             vertical-align: middle;
         }
+        .button {
+            margin: 0 0.5rem 0 0;
+            height: 1rem;
+            vertical-align: middle;
+            a {
+                display: block;
+                font-size: 0.7rem;
+                height: 1rem;
+                line-height: 1rem;
+            }
+        }
     }
     .main {
         position: relative;
@@ -196,7 +207,7 @@ $orangelight: #e78a14;
             }
             .van-step__line {
                 height: 2px;
-                background-color: #ccc!important;
+                background-color: #ccc !important;
                 top: 1.45rem;
             }
             .van-step__circle-container {
