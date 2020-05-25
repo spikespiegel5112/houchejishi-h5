@@ -16,8 +16,8 @@
                   @click='handleChangePaymentName(item)'>
                   <div>
                     <span v-if="item.img!==''" class="thumbnail">
-                      <!-- {{baseUrl+'/manager'+item.img}} -->
-                      <img :src="baseUrl+'/manager'+item.img" alt="">
+                      <!-- {{baseUrl+'/cretech'+item.img}} -->
+                      <img :src="baseUrl+'/cretech'+item.img" alt="">
                     </span>
                     <label>{{item.name}}</label>
 
@@ -30,7 +30,8 @@
           <van-field v-model="formData.isDiscount" label="贴息" name="isDiscount"
             :rules="[{ required: true, message: '请选择贴息' }]">
             <template #input>
-              <van-radio-group v-model="formData.isDiscount" direction="horizontal" :disabled='!hasDiscount'>
+              <van-radio-group v-model="formData.isDiscount" direction="horizontal" :disabled='!hasDiscount'
+                @change='handleChangeIsDiscount'>
                 <van-radio name='0'>否</van-radio>
                 <van-radio v-if='hasDiscount' name='1'>是</van-radio>
               </van-radio-group>
@@ -78,10 +79,10 @@ export default {
   },
   data() {
     return {
-      findMerchantPeriodRequest: '/manager/trade/findMerchantPeriod',
-      findMerchantDetailRequest: '/manager/merchant/findMerchantDetail',
-      saveOrderRequest: '/manager/order/saveOrder',
-      getOrderPaymentRequest: '/manager/payment/orderPayment',
+      findMerchantPeriodRequest: '/trade/findMerchantPeriod',
+      findMerchantDetailRequest: '/merchant/findMerchantDetail',
+      saveOrderRequest: '/order/saveOrder',
+      getOrderPaymentRequest: '/payment/orderPayment',
       formData: {
         amount: "",
         isDiscount: null,
@@ -364,13 +365,17 @@ export default {
         }
       })
     },
+    handleChangeIsDiscount() {
+      this.formData.period = ''
+    },
     handleFocusRemark() {
       this.remarkRows = 2
     },
     handleBlurRemark() {
       this.remarkRows = 2
 
-    }
+    },
+
   }
 };
 

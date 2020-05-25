@@ -101,8 +101,8 @@ export const constantRoutes = [{
 
 
 export default new Router({
-  // mode: 'history', // 去掉url中的#
-  // base: '/manager/',
+  mode: 'history', // 去掉url中的#
+  base: '/h5',
   scrollBehavior: () => ({
     y: 0
   }),

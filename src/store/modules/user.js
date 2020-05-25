@@ -91,7 +91,7 @@ const user = {
       return new Promise((resolve, reject) => {
         // 临时跳过登录
 
-        service.get('/manager/getUserInfo', {}).then(response => {
+        service.get('/getUserInfo', {}).then(response => {
           // response = response.data
           response = response.data || response
           commit('setUserInfo', response)
@@ -110,7 +110,7 @@ const user = {
       state
     }) {
       return new Promise((resolve, reject) => {
-        service.post('/manager/logout', {}).then(response => {
+        service.post('/logout', {}).then(response => {
           localStorage.removeItem('loginFlag')
           commit('setUserInfo', {})
           resolve(response)

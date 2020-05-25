@@ -96,7 +96,7 @@ const mutations = {
 const actions = {
   findIndexPermission({ commit, state }, params) {
     return new Promise((resolve, reject) => {
-      service.post('/manager/permission/findIndexPermission', {}).then(response => {
+      service.post('/permission/findIndexPermission', {}).then(response => {
         response = response.data
 
         resolve(response)
@@ -126,7 +126,7 @@ const actions = {
   findRolePermission({ commit, state }, params) {
     return new Promise((resolve, reject) => {
       console.log('findRolePermission++++++', params)
-      service.post('/manager/permission/findRolePermission', params).then(response => {
+      service.post('/permission/findRolePermission', params).then(response => {
         response = response.data
 
         // commit('setRolePermission', response)

@@ -38,8 +38,8 @@ export default {
   data() {
 
     return {
-      loginRequest: '/manager/login',
-      updatePasswordRequest: '/manager/user/updatePassword',
+      loginRequest: '/login',
+      updatePasswordRequest: '/user/updatePassword',
       formData: {
         loginName: "",
         password: "",

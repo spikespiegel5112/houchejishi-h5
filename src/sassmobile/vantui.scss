@@ -37,12 +37,12 @@
     .van-step--horizontal {
         &:first-child {
             .van-step__title {
-                margin-left: -0.8rem;
+                margin-left: -1.3rem;
             }
         }
         &:last-child {
             .van-step__title {
-                margin-right: -1rem;
+                margin-right: -1.3rem;
             }
         }
         .van-step__title {
@@ -86,7 +86,7 @@
 
 .van-field {
     .van-field__label {
-        width: 3.8rem;
+        width: 2.8rem;
         color: #656666;
     }
     .van-field__error-message {

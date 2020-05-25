@@ -14,11 +14,10 @@ import { Notify, Dialog } from 'vant';
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例
-const baseURL = 'http://122.112.224.131:8090'
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
   // baseURL: process.env.VUE_APP_BASE_API,
-  baseURL: process.env.NODE_ENV === "production" ? process.env.VUE_APP_BASE_API : '/manager',
+  baseURL: process.env.NODE_ENV === "production" ? process.env.VUE_APP_BASE_API + '/cretech' : '/cretech',
   // baseURL: 'http://122.112.224.131:8090',
 
   // 超时
@@ -105,11 +104,6 @@ service.interceptors.response.use(res => {
 
       if (fromRouteData.path === '/loginMobile' || fromRouteData.path === '/') {
         localStorage.removeItem('loginFlag')
-        // setTimeout(() => {
-        //   Router.push({
-        //     path: fromRouteData.path
-        //   })
-        // })
         handleLogout()
       } else {
 

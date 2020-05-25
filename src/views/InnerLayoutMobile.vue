@@ -32,7 +32,7 @@ export default {
   },
   data() {
     return {
-      getUserInfoRequest: '/manager/getUserInfo'
+      getUserInfoRequest: '/getUserInfo'
     };
   },
   computed: {

@@ -40,7 +40,7 @@ export default {
 
   data() {
     return {
-      findOrderByOrderNoRequest: '/manager/order/findOrderByOrderNo',
+      findOrderByOrderNoRequest: '/order/findOrderByOrderNo',
       alipayNotifyRequest: '/notify/alipayNotify',
       timeLimit: 1800, // 以秒为单位
       frequencey: 3, // 以秒为单位
@@ -113,13 +113,11 @@ export default {
     },
     getPaymentStatusTimer() {
       this.timer = () => {
-
-
         setTimeout(() => {
           // this.timeLimit--
+          this.currentTimestamp = Math.round(new Date())
           this.getPaymentStatusPromise().then(() => {
             if (!this.failedFlag) {
-              // this.currentStep = 2
               this.$router.push({
                 name: 'congratulationMobile'
               })
