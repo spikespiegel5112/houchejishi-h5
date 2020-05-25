@@ -63,8 +63,8 @@ export default {
       cookiePassword: "",
       verificationCodeData: '',
       formData: {
-        loginName: "admin",
-        password: "123456"
+        loginName: "",
+        password: ""
       },
       rememberMe: false,
 

@@ -57,8 +57,8 @@ export default {
     return {
       loginRequest: '/login',
       formData: {
-        account: "admin",
-        password: "123456"
+        account: "",
+        password: ""
       },
       value1: '',
       value2: '',
