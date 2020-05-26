@@ -46,6 +46,7 @@ const state = {
   pollingCheckOrderStatusTimesLimit: 25,
   headerData: {
     close: false,
+    logout: false,
     returnTo: ''
   },
   timestamp: '',

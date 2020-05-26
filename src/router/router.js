@@ -96,6 +96,18 @@ export const constantRoutes = [{
       "icon": "gear",
       functionaility: []
     }
+  },{
+    "name": "alipayAuth",
+    "path": "/alipayAuth",
+    component: () => import("@/views/orderMobile/alipayAuth.vue"),
+    configurable: false,
+    // hidden: true,
+    "meta": {
+      "title": "支付宝授权",
+      "icon": "gear",
+      functionaility: []
+    }
+    
   }]
 }]
 

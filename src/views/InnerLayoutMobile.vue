@@ -7,7 +7,7 @@
       <div v-if='headerData.close' class="close">
         <van-icon name="cross" @click='close' />
       </div>
-      <div class="logout button">
+      <div v-if='headerData.logout' class="logout button">
         <a @click='logout'>注销</a>
       </div>
     </div>
@@ -108,6 +108,13 @@ export default {
       })
 
 
+    },
+    checkHeaderButton() {
+      const logoutButtonActiveList = ['createOrderMobile', 'showQRCodeMobile', 'congratulationMobile',]
+      
+      this.$store.commit('app/updateHeader', {
+        logout: false
+      })
     }
   }
 };
