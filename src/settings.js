@@ -1,5 +1,5 @@
 module.exports = {
-  title: '吉市分期',
+  title: '吉市分期h5',
 
   /**
    * 是否系统布局配置
