@@ -1,14 +1,8 @@
 <template>
-  <el-color-picker
-    v-model="theme"
-    :predefine="['#409EFF', '#1890ff', '#304156','#212121','#11a983', '#13c2c2', '#6959CD', '#f5222d', ]"
-    class="theme-picker"
-    popper-class="theme-picker-dropdown"
-  />
+  <div></div>
 </template>
 
 <script>
-const version = require('element-ui/package.json').version // element-ui version from node_modules
 const ORIGINAL_THEME = '#409EFF' // default color
 
 export default {
@@ -61,8 +55,7 @@ export default {
       }
 
       if (!this.chalk) {
-        const url = `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`
-        await this.getCSSString(url, 'chalk')
+      
       }
 
       const chalkHandler = getHandler('chalk', 'chalk-style')

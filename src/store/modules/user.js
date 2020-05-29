@@ -4,11 +4,6 @@ import {
   setToken,
   removeToken
 } from '@/utils/auth'
-import {
-  // Notification,
-  // MessageBox,
-  Message
-} from 'element-ui'
 const user = {
   state: {
     userInfo: {},

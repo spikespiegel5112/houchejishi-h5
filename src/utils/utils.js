@@ -1,10 +1,6 @@
 // import $ from 'jquery';
 // import wx from 'weixin-js-sdk'
-import {
-  // Notification,
-  // MessageBox,
-  Message
-} from 'element-ui'
+
 
 // import service from "./request";
 // import {ConfirmPlugin, WechatPlugin} from 'vux'
@@ -58,19 +54,6 @@ util.install = function (Vue) {
     }
   });
 
-
-
-  Vue.prototype.$showUrlMessage = message => {
-    switch (message) {
-      case 'save':
-        Message.success('保存成功')
-        break;
-      case 'delete':
-        Message.success('删除成功')
-        break;
-      default:
-    }
-  }
 
   Vue.prototype.$checkAuthority = (routeData, functionailityName) => {
     if (!routeData.meta.functionaility) {

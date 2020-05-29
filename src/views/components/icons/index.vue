@@ -4,47 +4,18 @@
       <a href="#" target="_blank">Add and use
       </a>
     </aside>
-    <el-tabs type="border-card">
-      <el-tab-pane label="Icons">
-        <div v-for="item of svgIcons" :key="item">
-          <el-tooltip placement="top">
-            <div slot="content">
-              {{ generateIconCode(item) }}
-            </div>
-            <div class="icon-item">
-              <svg-icon :icon-class="item" class-name="disabled" />
-              <span>{{ item }}</span>
-            </div>
-          </el-tooltip>
-        </div>
-      </el-tab-pane>
-      <el-tab-pane label="Element-UI Icons">
-        <div v-for="item of elementIcons" :key="item">
-          <el-tooltip placement="top">
-            <div slot="content">
-              {{ generateElementIconCode(item) }}
-            </div>
-            <div class="icon-item">
-              <i :class="'el-icon-' + item" />
-              <span>{{ item }}</span>
-            </div>
-          </el-tooltip>
-        </div>
-      </el-tab-pane>
-    </el-tabs>
+    <div></div>
   </div>
 </template>
 
 <script>
 import svgIcons from './svg-icons'
-import elementIcons from './element-icons'
 
 export default {
   name: 'Icons',
   data() {
     return {
       svgIcons,
-      elementIcons
     }
   },
   methods: {
