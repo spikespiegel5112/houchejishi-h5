@@ -30,7 +30,6 @@
     "vue",
     "admin",
     "dashboard",
-    "element-ui",
     "boilerplate",
     "",
     "management-system"
@@ -42,8 +41,6 @@
   "dependencies": {
     "@riophae/vue-treeselect": "0.4.0",
     "axios": "0.18.1",
-    "echarts": "^4.6.0",
-    "element-ui": "2.11.1",
     "fuse.js": "3.4.4",
     "js-cookie": "2.2.0",
     "jsencrypt": "3.0.0-rc.1",
