@@ -2,11 +2,6 @@ import axios from 'axios'
 import Router from '../router/router'
 import Store from '../store/store'
 
-// import {
-//   Notification,
-//   MessageBox,
-//   Message
-// } from 'element-ui'
 import store from '@/store/store'
 import { Notify, Dialog } from 'vant';
 
