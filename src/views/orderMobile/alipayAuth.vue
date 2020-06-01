@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     authCode() {
-      return this.$route.query.authCode || ''
+      return this.$route.query.app_auth_code || ''
     }
   },
   beforeCreate() {
@@ -35,7 +35,7 @@ export default {
     checkToken() {
       this.$http.get(this.getAuthTokenRequest, {
         params: {
-          authCode: this.authCode
+          app_auth_code: this.authCode
         }
       }).then(response => {
         this.successFlag = true
