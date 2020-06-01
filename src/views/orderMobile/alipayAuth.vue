@@ -35,7 +35,7 @@ export default {
     checkToken() {
       this.$http.get(this.getAuthTokenRequest, {
         params: {
-          app_auth_code: this.authCode
+          authCode: this.authCode
         }
       }).then(response => {
         this.successFlag = true
