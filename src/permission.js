@@ -17,34 +17,31 @@ const mainRoutes = store.state.permission.routes
 let result = errorRoutes
 
 
+
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
   store.commit('app/updateFromRoute', from)
 
-  let userInfo = store.state.user.userInfo
-  console.log('to.path1+++++', to.path)
-  console.log('to.path1+++++', Object.keys(userInfo).length)
+  const userInfo = store.state.user.userInfo
+  // console.log('to.path1+++++', to.path)
+  // console.log('to.path1+++++', Object.keys(userInfo).length)
+  const checkHeader = () => {
+    const logoutBlackList = ['/loginMobile', '/changePassword', '/alipayAuth', '/']
+    store.commit('app/updateHeader', {
+      logout: !logoutBlackList.find(item => item === to.path)
+    })
+  }
+  const checkNeedUserInfo = to => {
+    const needUserInfoBlackList = ['/loginMobile', '/changePassword', '/alipayAuth', '/']
+    return !needUserInfoBlackList.find(item => item === to.path)
+  }
+  checkHeader()
 
   if (!userInfo || Object.keys(userInfo).length === 0) {
-
-    if (to.path !== '/loginMobile' && to.path !== '/changePassword' && to.path !== '/') {
-      try {
-        await store.dispatch('getUserInfo')
-        next()
-      } catch (error) {
-        userInfo = null
-      }
-
-    } else {
-      next()
+    if (checkNeedUserInfo(to)) {
+      await store.dispatch('getUserInfo')
     }
-
-    // if (to.path !== '/loginMobile' && to.path !== '/') {
-    //   userInfo = await store.dispatch('getUserInfo')
-    //   next()
-    // } else {
-    //   next()
-    // }
+    next()
   } else {
     next()
 

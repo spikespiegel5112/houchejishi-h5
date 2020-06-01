@@ -45,10 +45,9 @@ service.interceptors.response.use(res => {
     return Promise.reject(res.data)
   }
   const handleLogout = () => {
-    
 
     if (Boolean(loginFlag) === true) {
-      
+
       loginFlag = false
       localStorage.removeItem('loginFlag')
       Dialog.alert({
@@ -59,9 +58,12 @@ service.interceptors.response.use(res => {
           path: '/loginMobile'
         })
       });
-
-
+    } else {
+      // Router.push({
+      //   path: '/loginMobile'
+      // })
     }
+
 
   }
   const code = res.data ? res.data.respCode : res.respCode
@@ -99,14 +101,15 @@ service.interceptors.response.use(res => {
 
       if (fromRouteData.path === '/loginMobile' || fromRouteData.path === '/') {
         localStorage.removeItem('loginFlag')
-        handleLogout()
+        setTimeout(() => {
+          Router.push({
+            path: fromRouteData.path
+          })
+        })
       } else {
 
         handleLogout()
       }
-      // Router.push({
-      //   name: 'loginMobile'
-      // })
       return Promise.reject(message)
     case '99':
       return Promise.reject(message)
