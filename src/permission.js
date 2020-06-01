@@ -23,8 +23,6 @@ router.beforeEach(async (to, from, next) => {
   store.commit('app/updateFromRoute', from)
 
   const userInfo = store.state.user.userInfo
-  // console.log('to.path1+++++', to.path)
-  // console.log('to.path1+++++', Object.keys(userInfo).length)
   const checkHeader = () => {
     const logoutBlackList = ['/loginMobile', '/changePassword', '/alipayAuth', '/']
     store.commit('app/updateHeader', {

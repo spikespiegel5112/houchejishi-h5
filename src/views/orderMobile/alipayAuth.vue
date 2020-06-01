@@ -3,6 +3,7 @@
     <div class="banner">
       <img src="@/image/mobile/success.png" alt="">
       <label v-if="successFlag!==''" for="">授权{{successFlag?'成功':'失败'}}</label>
+      {{authCode}}
     </div>
   </div>
 </template>
