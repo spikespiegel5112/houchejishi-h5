@@ -1,7 +1,8 @@
 <template>
   <div class="step3">
     <div class="banner">
-      <img src="@/image/mobile/success.png" alt="">
+      <img v-if='successFlag' src="@/image/mobile/success.png" alt="">
+      <img v-else src="@/image/mobile/failed.png" alt="">
       <label v-if="successFlag!==''" for="">授权{{successFlag?'成功':'失败'}}</label>
       <!-- {{authCode}} -->
     </div>
