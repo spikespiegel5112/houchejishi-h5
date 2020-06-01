@@ -58,7 +58,8 @@
             name="remark" :rules="[{ required: false, message: '请输入备注' }]" maxlength='100' show-word-limit /> -->
           <!-- 通过 validator 进行异步函数校验 -->
           <div class="footer">
-            <van-button round block type="info" @click='handleSubmit'>收款</van-button>
+            <van-button v-if='!submitingFlag' round block type="info" @click='handleSubmit'>收款</van-button>
+            <van-button v-else disabled round block type="info" @click='handleSubmit'>收款</van-button>
           </div>
         </van-form>
       </van-cell-group>
@@ -116,7 +117,8 @@ export default {
       periodData: {},
       tradeIndex: 0,
       currentPeriodData: {},
-      remarkRows: 1
+      remarkRows: 1,
+      submitingFlag: false
     };
   },
   computed: {
@@ -212,7 +214,9 @@ export default {
       console.log(this.formData)
       this.$refs.formData.validate().then(async valid => {
         try {
+          this.submitingFlag = true
           await this.handleSubmitPromise().then(async response => {
+            this.submitingFlag = false
             if (this.tradeDictionary.find(item => item.id === this.formData.paymentId).name !== '银联支付') {
               this.qrCode = await this.getQRCodePromise()
             } else {
@@ -228,6 +232,7 @@ export default {
           })
 
         } catch (error) {
+          this.submitingFlag = false
           Notify({
             message: error,
             duration: 1000,
