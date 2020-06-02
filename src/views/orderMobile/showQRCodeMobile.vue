@@ -180,7 +180,7 @@ export default {
 
     },
     getPaymentName(name) {
-      if (name = '花呗分期') {
+      if (name === '花呗分期') {
         return '支付宝'
       }
       return name
