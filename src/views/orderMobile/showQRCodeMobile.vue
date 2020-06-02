@@ -8,7 +8,7 @@
     </div>
 
     <div class="order_qrcodemobile_wrapper">
-      <p class="hint">打开{{paymentName}}，扫一扫</p>
+      <p class="hint">打开{{getPaymentName(paymentName)}}，扫一扫</p>
       <!-- {{timestamp}}
       {{currentTimestamp}}
       {{(currentTimestamp-timestamp)/1000}}
@@ -178,6 +178,12 @@ export default {
     },
     onClickRight() {
 
+    },
+    getPaymentName(name) {
+      if (name = '花呗分期') {
+        return '支付宝'
+      }
+      return name
     },
     goBack() {
       this.$router.go(-1)
