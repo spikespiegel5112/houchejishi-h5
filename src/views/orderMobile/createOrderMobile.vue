@@ -32,8 +32,8 @@
             <template #input>
               <van-radio-group v-model="formData.isDiscount" direction="horizontal" :disabled='!hasDiscount'
                 @change='handleChangeIsDiscount'>
-                <van-radio name='0'>否</van-radio>
                 <van-radio v-if='hasDiscount' name='1'>是</van-radio>
+                <van-radio name='0'>否</van-radio>
               </van-radio-group>
             </template>
           </van-field>
@@ -305,7 +305,7 @@ export default {
     async handleChangePaymentName(data) {
       console.log('handleChangePaymentName+++++', data)
       console.log('this.tradeDictionary+++++', this.tradeDictionary)
-      this.formData.isDiscount = '0'
+      this.formData.isDiscount = '1'
       let currentPeriodData = this.tradeDictionary.find(item => item.id === data.id)
       const checkTradeIndex = id => {
         this.tradeDictionary.forEach((item, index) => {
