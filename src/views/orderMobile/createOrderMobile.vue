@@ -305,7 +305,7 @@ export default {
     async handleChangePaymentName(data) {
       console.log('handleChangePaymentName+++++', data)
       console.log('this.tradeDictionary+++++', this.tradeDictionary)
-      this.formData.isDiscount = '1'
+      this.formData.isDiscount = this.formData.isDiscount = this.hasDiscount ? '1' : '0'
       let currentPeriodData = this.tradeDictionary.find(item => item.id === data.id)
       const checkTradeIndex = id => {
         this.tradeDictionary.forEach((item, index) => {
