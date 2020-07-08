@@ -37,7 +37,8 @@ module.exports = {
     hot: true,
     proxy: {
       "/cretech": {
-        target: process.env.VUE_APP_BASE_API,
+        // target: process.env.VUE_APP_BASE_API,
+        target: 'http://www.cretech.com',
         changeOrigin: true,
         ws: false,
         pathRewrite: {
